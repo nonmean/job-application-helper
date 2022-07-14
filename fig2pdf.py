@@ -20,8 +20,6 @@ __license__ = "Python"
 
 
 def save_pdf(file_name, img_names):
-    # print(img_names)
-
     imgs = [Image.open(i).convert("RGB") for i in img_names]
 
     if len(imgs) == 1:
@@ -34,7 +32,6 @@ def main():
     """
     pass
     """
-
     # TODO: handle incorrect parameters
     print(sys.argv[1:])
     
@@ -50,8 +47,8 @@ def main():
         
         # remove the last \n if it exists
         input_names = [i[:-1] if i[-1] == "\n" else i for i in input_names]
+
         save_pdf(output_name, input_names)
-    
 
     print("Done! Yay!")
 

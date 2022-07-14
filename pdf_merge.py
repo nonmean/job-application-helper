@@ -4,18 +4,14 @@
 """
 Merge multiple PDF files to one PDF file
 Versioin 0.1: a txt file is used to store file names
+Versioin 0.2: PDF file can be resized 
 """
 
 import datetime
 import logging
 import sys
 
-from PyPDF2 import PdfMerger, PdfFileReader, PdfFileWriter
-
-try:
-    import matplotlib.pyplot as plt
-except ImportError:
-    logging.warn('error while importing matplotlib')
+from PyPDF2 import PdfFileReader, PdfFileWriter
 
 
 __author__ = "nonmean"
@@ -49,9 +45,8 @@ def main():
     """
     pass
     """
-
     # TODO: handle incorrect parameters
-    print(sys.argv[1:])
+    print(sys.argv[1:]) # argv[0] is the file path + name
     
     if len(sys.argv[1:]) == 2:
         input_file, output_name = sys.argv[1:]
@@ -65,18 +60,23 @@ def main():
         
         # remove the last \n if it exists
         input_names = [i[:-1] if i[-1] == "\n" else i for i in input_names]
-        merge_pdf(input_names, output_name)
-    
-    elif len(sys.argv[1:]) == 1:
+
+    elif len(sys.argv[1:]) == 1: # default case
         name_string = sys.argv[1]
 
         input_names = []
+
         input_names.append("%s_Anschreiben.pdf" %name_string)
         input_names.append("%s_cv.pdf" %name_string)
         input_names.append("%s_Zertifikate.pdf" %name_string)
 
         output_name = ("%s_Bewerbungsunterlagen.pdf" %name_string)
-        merge_pdf(input_names, output_name)
+
+    else:
+        print("incorrect parameters")
+        return
+
+    merge_pdf(input_names, output_name)
 
     print("Done! Yay!")
 
